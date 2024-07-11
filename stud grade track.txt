@@ -1,0 +1,90 @@
+import java.util.ArrayList; // Import ArrayList class
+import java.util.Scanner; // Import Scanner class for user input
+
+public class GradeCalculator {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in); // Create Scanner object for reading user input
+        ArrayList<String> studentNames = new ArrayList<>(); // Create ArrayList to store student names
+        ArrayList<Double> grades = new ArrayList<>(); // Create ArrayList to store student grades
+
+        System.out.println("Enter student names and grades. Type 'done' to finish:"); // Prompt user for input
+
+        while (true) { // Infinite loop for input
+            System.out.print("Enter student name: "); // Prompt for student name
+            String name = scanner.nextLine(); // Read student name input
+            if (name.equalsIgnoreCase("done")) { // Check if input is 'done'
+                break; // Exit loop if 'done' is entered
+            }
+            studentNames.add(name); // Add student name to ArrayList
+
+            System.out.print("Enter grade for " + name + ": "); // Prompt for student grade
+            while (true) { // Loop for grade input validation
+                String gradeInput = scanner.nextLine(); // Read grade input
+                try {
+                    double grade = Double.parseDouble(gradeInput); // Convert input to double
+                    grades.add(grade); // Add grade to ArrayList
+                    break; // Exit loop if grade is valid
+                } catch (NumberFormatException e) { // Catch invalid number format
+                    System.out.println("Invalid input. Please enter a valid grade for " + name + ": "); // Prompt for valid input
+                }
+            }
+        }
+
+        if (grades.size() == 0) { // Check if no grades were entered
+            System.out.println("No grades were entered."); // Print message
+        } else {
+            System.out.println("\nStudent Names and Grades:"); // Print header for names and grades
+            for (int i = 0; i < studentNames.size(); i++) { // Loop through names and grades
+                System.out.println(studentNames.get(i) + ": " + grades.get(i)); // Print each student's name and grade
+            }
+
+            double sum = 0; // Initialize sum variable for total grades
+            double highest = grades.get(0); // Initialize highest grade
+            double lowest = grades.get(0); // Initialize lowest grade
+
+            for (double grade : grades) { // Loop through grades
+                sum += grade; // Add grade to sum
+                if (grade > highest) { // Check if grade is higher than current highest
+                    highest = grade; // Update highest grade
+                }
+                if (grade < lowest) { // Check if grade is lower than current lowest
+                    lowest = grade; // Update lowest grade
+                }
+            }
+
+            double average = sum / grades.size(); // Calculate average grade
+
+            System.out.println("\nAverage grade: " + average); // Print average grade
+            System.out.println("Highest grade: " + highest); // Print highest grade
+            System.out.println("Lowest grade: " + lowest); // Print lowest grade
+        }
+
+        scanner.close(); // Close Scanner to free up resources
+    }
+}
+
+
+
+java -cp /tmp/jr9cmb3q1Z/GradeCalculator
+Enter student names and grades. Type 'done' to finish:
+Enter student name: allena
+Enter grade for allena: 45
+Enter student name: swathi
+Enter grade for swathi: 67
+Enter student name: dinesh
+Enter grade for dinesh: 34
+Enter student name: carol
+Enter grade for carol: 78
+Enter student name: done
+
+Student Names and Grades:
+allena: 45.0
+swathi: 67.0
+dinesh: 34.0
+carol: 78.0
+
+Average grade: 56.0
+Highest grade: 78.0
+Lowest grade: 34.0
+
+=== Code Execution Successful ===
